@@ -9,3 +9,18 @@ with any additional questions or comments.
 
 We welcome 3rd party pull requests.
 For significant changes we strongly recommend opening an issue to start a design discussion first.
+
+## Microsoft internal developers
+
+You may use quickbuild to build the repo, sometimes more quickly.
+Install quickbuild with this command (in cmd shell):
+
+```cmd
+powershell -NoProfile -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://aka.ms/qbootstrap'))" && PATH %LocalAppData%\CloudBuild;%PATH%
+```
+
+Or this command in PowerShell:
+
+```ps1
+iex ((New-Object System.Net.WebClient).DownloadString('https://aka.ms/qbootstrap')); $env:PATH += '$env:localappdata\CloudBuild'
+```

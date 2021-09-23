@@ -18,6 +18,12 @@ build/
 [Bb]in/
 [Oo]bj/
 
+# QuickBuild
+[Qq][Ll]ocal/
+[Qq][Ll]ogs/
+__cache[Oo]utput/
+[Ll]ogs/
+
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*

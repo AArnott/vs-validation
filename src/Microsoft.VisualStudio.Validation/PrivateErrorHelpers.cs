@@ -21,6 +21,10 @@ internal static class PrivateErrorHelpers
     /// <returns><paramref name="type"/>, if it is not a generic type instance of <paramref name="wrapper"/>; otherwise the type argument.</returns>
     internal static Type TrimGenericWrapper(Type type, Type? wrapper)
     {
+#if NETWASM
+        // NetWasm has no runtime generic type inspection.
+        return type;
+#else
         Type[] typeArgs;
         if (type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == wrapper && (typeArgs = type.GenericTypeArguments).Length == 1)
         {
@@ -30,6 +34,7 @@ internal static class PrivateErrorHelpers
         {
             return type;
         }
+#endif
     }
 
     /// <summary>

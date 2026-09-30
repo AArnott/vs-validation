@@ -4,7 +4,9 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+#if !NETWASM
 using System.Resources;
+#endif
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -75,6 +77,7 @@ public static partial class Verify
         }
     }
 
+#if !NETWASM
     /// <inheritdoc cref="Operation(bool, ResourceManager, string, object?)" path="/summary"/>
     /// <inheritdoc cref="Operation(bool, ResourceManager, string, object?)" path="/remarks"/>
     /// <inheritdoc cref="Operation(bool, ResourceManager, string, object?)" path="/exception"/>
@@ -142,6 +145,7 @@ public static partial class Verify
             throw new InvalidOperationException(PrivateErrorHelpers.Format(resourceManager.GetString(unformattedMessageResourceName, CultureInfo.CurrentCulture)!, args));
         }
     }
+#endif
 
     /// <summary>
     /// Throws an <see cref="InvalidOperationException"/> if a condition is false.
@@ -243,6 +247,7 @@ public static partial class Verify
         }
     }
 
+#if !NETWASM
     /// <summary>
     /// Throws an exception if the given value is negative.
     /// </summary>
@@ -267,4 +272,5 @@ public static partial class Verify
             }
         }
     }
+#endif
 }

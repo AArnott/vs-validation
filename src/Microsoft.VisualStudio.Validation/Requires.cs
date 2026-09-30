@@ -6,7 +6,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+#if !NETWASM
 using System.Resources;
+#endif
 using System.Runtime;
 using System.Runtime.CompilerServices;
 
@@ -430,6 +432,7 @@ public static class Requires
         }
     }
 
+#if !NETWASM
     /// <summary>
     /// Throws an <see cref="ArgumentException"/> if a condition does not evaluate to true.
     /// </summary>
@@ -499,6 +502,7 @@ public static class Requires
             throw new ArgumentException(Format(resourceManager.GetString(unformattedMessageResourceName, CultureInfo.CurrentCulture)!, args), parameterName);
         }
     }
+#endif
 
     /// <summary>
     /// Throws an ArgumentException.
@@ -545,6 +549,10 @@ public static class Requires
     {
         if (!Enum.IsDefined(typeof(TEnum), value))
         {
+#if NETWASM
+            // NetWasm lacks InvalidEnumArgumentException and Type.GetEnumUnderlyingType.
+            throw new ArgumentException(Strings.FormatArgument_NotEnum(parameterName, value, typeof(TEnum).FullName), parameterName);
+#else
             if (typeof(int) == typeof(TEnum).GetEnumUnderlyingType())
             {
                 throw new InvalidEnumArgumentException(parameterName, (int)(object)value, typeof(TEnum));
@@ -553,6 +561,7 @@ public static class Requires
             {
                 throw new InvalidEnumArgumentException(Strings.FormatArgument_NotEnum(parameterName, value, typeof(TEnum).FullName));
             }
+#endif
         }
     }
 

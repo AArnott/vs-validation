@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="NetWasm.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net8.0;netwasm0.1</TargetFrameworks>
     <RootNamespace>Microsoft</RootNamespace>
 
     <Description>Common input validation and state verification utility methods.</Description>
@@ -9,5 +9,15 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Update="Strings.resx" EmitFormatMethods="true" />
+  </ItemGroup>
+  <!-- netwasm0.1: NetWasm has no System.Resources.ResourceManager. Use generated constant strings instead. -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netwasm0.1'">
+    <EnablePackageValidation>false</EnablePackageValidation>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netwasm0.1'">
+    <EmbeddedResource Remove="Strings.resx" />
+    <!-- NetWasm splits these namespaces into separate packages; this library needs neither. -->
+    <Using Remove="System.Linq" />
+    <Using Remove="System.Net.Http" />
   </ItemGroup>
 </Project>

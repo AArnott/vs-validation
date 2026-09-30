@@ -36,6 +36,7 @@ public partial class Assumes
         {
         }
 
+#if !NETWASM
         /// <summary>
         /// Initializes a new instance of the <see cref="InternalErrorException"/> class.
         /// </summary>
@@ -45,5 +46,6 @@ public partial class Assumes
             : base(info, context)
         {
         }
+#endif
     }
 }

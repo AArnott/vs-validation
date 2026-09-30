@@ -114,7 +114,9 @@ public static class Report
             message = "A recoverable error has been detected.";
         }
 
+#if !NETWASM
         Debug.WriteLine(message);
+#endif
         Debug.Assert(false, message);
     }
 

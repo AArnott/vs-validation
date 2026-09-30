@@ -10,6 +10,7 @@ namespace Microsoft;
 /// </summary>
 public static class EventHandlerExtensions
 {
+#if !NETWASM
     /// <summary>
     /// Invokes any event handlers that are hooked to the specified event.
     /// </summary>
@@ -23,6 +24,7 @@ public static class EventHandlerExtensions
 
         handler?.DynamicInvoke(sender, e);
     }
+#endif
 
     /// <summary>
     /// Invokes any event handlers that are hooked to the specified event.
